@@ -21,6 +21,7 @@ from board import views as board_views
 
 router = routers.SimpleRouter()
 router.register(r'managers', board_views.ManagerViewSet, basename='managers')
+router.register(r'projects', board_views.ProjectViewSet, basename='projects')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

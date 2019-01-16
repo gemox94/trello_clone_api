@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import BasePermission, AllowAny, IsAuthenticated
 from rest_framework.decorators import action
 
-from . import serializers
+from . import serializers, models as board_models
 from accounts import models as account_models
 
 
@@ -74,6 +74,9 @@ class ManagerViewSet(viewsets.ModelViewSet):
 class ProjectViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.ProjectSerializer
+
+    def get_queryset(self):
+        return board_models.Project.objects.filter(manager=self.request.user)
 
     def perform_create(self, serializer):
         serializer.save(manager=self.request.user)
