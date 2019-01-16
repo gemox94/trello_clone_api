@@ -8,7 +8,7 @@ class Project(models.Model):
     status = models.CharField(max_length=40, null=True),
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    manager = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
+    manager = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='projects')
 
     def __str__(self):
         return self.name
