@@ -102,3 +102,28 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(manager=self.request.user)
 
+
+class BoardViewSet(viewsets.ModelViewSet):
+
+    serializer_class = serializers.BoardSerializer
+
+    def get_queryset(self):
+        project_pk = self.kwargs['project_pk']
+        return board_models.Board.objects.filter(project_id=project_pk)
+
+    def perform_create(self, serializer):
+        project_pk = self.kwargs['project_pk']
+        serializer.save(project_id=project_pk)
+
+
+class CardViewSet(viewsets.ModelViewSet):
+
+    serializer_class = serializers.CardSerializer
+
+    def get_queryset(self):
+        board_pk = self.kwargs['board_pk']
+        return board_models.Card.objects.filter(board_id=board_pk)
+
+    def perform_create(self, serializer):
+        board_pk = self.kwargs['board_pk']
+        serializer.save(board_id=board_pk)

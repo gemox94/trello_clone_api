@@ -15,15 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
+# from rest_framework import routers
+from rest_framework_nested import routers
 
 from board import views as board_views
 
 router = routers.SimpleRouter()
-router.register(r'managers', board_views.ManagerViewSet, basename='managers')
-router.register(r'projects', board_views.ProjectViewSet, basename='projects')
+router.register(r'managers', board_views.ManagerViewSet, base_name='managers')
+router.register(r'projects', board_views.ProjectViewSet, base_name='projects')
+
+project_router = routers.NestedSimpleRouter(router, r'projects', lookup='project')
+project_router.register(r'boards', board_views.BoardViewSet, base_name='boards')
+
+board_router = routers.NestedSimpleRouter(project_router, r'boards', lookup='board')
+board_router.register(r'cards', board_views.CardViewSet, base_name='cards')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/', include(project_router.urls)),
+    path('api/', include(board_router.urls)),
 ]

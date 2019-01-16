@@ -11,7 +11,12 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'manager',
         )
+
+        extra_kwargs = {
+            'manager': {'read_only': True}
+        }
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -20,7 +25,12 @@ class BoardSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'project'
         )
+
+        extra_kwargs = {
+            'project': {'read_only': True}
+        }
 
 
 class CardSerializer(serializers.ModelSerializer):
@@ -30,7 +40,12 @@ class CardSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'description',
+            'board',
         )
+
+        extra_kwargs = {
+            'board': {'read_only': True}
+        }
 
 
 class ManagerSerializer(serializers.ModelSerializer):
@@ -46,11 +61,3 @@ class ManagerSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
-
-
-class TokenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DRF_Token
-        fields = (
-            'key',
-        )
