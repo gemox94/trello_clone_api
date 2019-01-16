@@ -1,0 +1,32 @@
+# Visual Studio
+.vscode
+
+# Sublime Text
+.sublime-project
+
+#Pycharm
+.idea
+
+# Pytho/Django
+*.log
+
+*.pot
+
+*.pyc
+
+*/*/*/__pycache__/
+
+*/*/__pycache__/
+
+*/__pycache__/
+
+sent_emails
+
+# Django database conf file
+my.cnf
+
+#NPM
+node_modules
+
+#webpack
+webpack-stats.json
