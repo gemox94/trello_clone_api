@@ -20,7 +20,7 @@ class Board(models.Model):
     status = models.CharField(max_length=40, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    project = models.ForeignKey('Project', on_delete=models.CASCADE)
+    project = models.ForeignKey('Project', on_delete=models.CASCADE, related_name='boards')
 
     def __str__(self):
         return self.name
@@ -33,7 +33,7 @@ class Card(models.Model):
     status = models.CharField(max_length=40, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
-    board = models.ForeignKey('Board', on_delete=models.CASCADE)
+    board = models.ForeignKey('Board', on_delete=models.CASCADE, related_name='cards')
 
     def __str__(self):
         return self.name
